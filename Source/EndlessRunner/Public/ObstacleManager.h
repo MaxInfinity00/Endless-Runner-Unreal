@@ -22,6 +22,13 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 		int noOfObstacles;
 
+	UPROPERTY()
+	int NoofDisappearObstacles;
+
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	float obstacleDisappearChances;
+
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		TArray<UObstacleData*> ObstacleDatas;
 

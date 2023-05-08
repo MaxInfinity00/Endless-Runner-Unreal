@@ -1,5 +1,4 @@
 #include "ObstacleComponent.h"
-
 #include "ObstacleManager.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -26,5 +25,18 @@ void UObstacleComponent::Recycle()
 {
 	Cast<AObstacleManager>(GetOwner())->RecycleObstacle(this);
 }
+
+void UObstacleComponent::CollideWithPlayer()
+{
+	bIsCollided = true;
+}
+
+void UObstacleComponent::Disappear()
+{
+	SetCollisionProfileName("NoCollision");
+	SetVisibility(false);
+	IsDisappeared = true;
+}
+
 
 

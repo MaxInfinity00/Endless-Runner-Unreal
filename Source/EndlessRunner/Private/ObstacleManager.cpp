@@ -44,9 +44,24 @@ void AObstacleManager::SpawnObstacles()
 
 void AObstacleManager::RecycleObstacle(UObstacleComponent* obstacle)
 {
+	if(obstacle->IsDisappeared)
+	{
+		obstacle->IsDisappeared = false;
+		obstacle->SetVisibility(true);
+		obstacle->SetCollisionProfileName("BlockAllDynamic");
+	}
+	else if(!obstacle->bIsCollided)
+	{
+		float chances = FMath::RandRange(0.f,1.f);
+		if(chances < obstacleDisappearChances)
+		{
+			NoofDisappearObstacles++;
+		}
+	}
 	int obstacleDataId = FMath::RandRange(0, ObstacleDatas.Num() - 1);
 	obstacle->SetStaticMesh(ObstacleDatas[obstacleDataId]->ObstacleMesh);
 	obstacle->SetWorldTransform(ObstacleDatas[obstacleDataId]->ObstacleTransform);
-	obstacle->SetRelativeLocation(FVector(9500.f, FMath::RandRange(-1,1) * 300, 0.0f));
+	obstacle->SetRelativeLocation(FVector(9500.f, FMath::RandRange(-1,1) * 300, 0.0f),false);
+	obstacle->bIsCollided = false;
 }
 
